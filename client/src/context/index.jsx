@@ -6,11 +6,6 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  });
-
   const [listOfData, setListOfData] = useState([]);
 
   async function fetchOfListOfData() {
@@ -33,37 +28,9 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     fetchOfListOfData();
   }, []);
-
-  async function handleSaveData() {
-    try {
-      const response = await axios.post("/api/", {
-        title: formData.title,
-        description: formData.description,
-      });
-      const result = response.data;
-      if (result) {
-        setListOfData([...listOfData, result]);
-        setFormData({
-          title: "",
-          description: "",
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
   return (
     <GlobalContext.Provider
-      value={{
-        loading,
-        setLoading,
-        formData,
-        setFormData,
-        handleSaveData,
-        listOfData,
-        setListOfData,
-        fetchOfListOfData,
-      }}
+      value={{ loading, setLoading, listOfData, setListOfData }}
     >
       {children}
     </GlobalContext.Provider>

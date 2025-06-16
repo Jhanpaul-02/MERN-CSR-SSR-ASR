@@ -1,18 +1,17 @@
 import { useContext } from "react";
-import { GlobalContext } from "../../Context";
+import { GlobalContext } from "../../context";
 
-export default function RenderList() {
+export default function ListOfTitle() {
   const { loading, listOfData } = useContext(GlobalContext);
-
   return (
     <div>
+      <h3>List of Title</h3>
       {loading ? (
-        <h1>Please wait...</h1>
+        <h3>Please wait...</h3>
       ) : (
         listOfData.map((itemData) => (
           <div key={itemData._id}>
-            <h3>{itemData.title}</h3>
-            <h5>{itemData.description}</h5>
+            <p>{itemData.title}</p>
           </div>
         ))
       )}
